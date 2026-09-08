@@ -5,10 +5,11 @@ import connectDB from "./lib/db.js";
 const app = express();
 const PORT = 5000;
 
-// app.get('/', (req , res) => {
-//   res.send("Hello World!");
-// })
 connectDB();
+// datas understanding middlewares
+
+app.use(express.json());
+app.use(express.urlencoded({extended: true}))
 
 // middleware 
 app.use('/movies', movieRoute)
