@@ -40,19 +40,6 @@ export const movieDetail = async(req, res) => {
   }
 };
 export const movieUpdate = async(req, res) => {
-    // if(req.body.title !== null){
-    //      res.movie.title = req.body.title
-    // }
-    //  if(req.body.desc !== null){
-    //      res.movie.desc = req.body.desc
-    // }
-
-    // try {
-    //    const updatedMovie = await res.movie.save() 
-    //    res.json(updatedMovie);
-    // } catch (error) {
-    //     res.status(400).json({message: error.message})
-    // }
     try {
        const updatedMovie =  await Movie.findByIdAndUpdate({_id: req.params.id},
             {
@@ -69,6 +56,11 @@ export const movieUpdate = async(req, res) => {
     }
 
 }
-export const movieDelete = (req, res) => {
-  res.json({ message: `Movie ${req.params.id} deleted` });
+export const movieDelete = async(req, res) => {
+   try {
+      const foundMovie = await Movie.findByIdAndDelete(req.params.id)
+      res.json({message: `${foundMovie.title} Movie Deleted`})
+   } catch (error) {
+      res.status(400).json({message: error.message})
+   }
 };
